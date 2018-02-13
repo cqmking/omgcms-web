@@ -65,7 +65,6 @@
 
         methods: {
             toggleMenu() {
-                console.log("AAA");
                 this.isCollapse = !this.isCollapse;
             },
             handleOpen(key, keyPath) {
@@ -153,7 +152,11 @@
 
     .el-menu-item.is-active {
         color: #FFF;
-        background-color: #409eff !important;
+        background-color: #2c3b41 !important;
+    }
+
+    .el-menu-item:focus, .el-menu-item:hover{
+        background-color: #2c3b41 !important;
     }
 
     .el-menu-item, .el-submenu__title {

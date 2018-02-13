@@ -26,7 +26,8 @@
                             <el-checkbox v-model="rememberPwd">记住密码</el-checkbox>
                         </el-col>
                         <el-col :span="8" style="text-align: right;">
-                            <el-button type="primary" size="small" @click.native.prevent="login">登&nbsp;&nbsp;录</el-button>
+                            <el-button type="primary" size="small" @click.native.prevent="login">登&nbsp;&nbsp;录
+                            </el-button>
                         </el-col>
                     </el-row>
                     <el-row style="line-height: 23px;">
@@ -58,8 +59,33 @@
         },
         methods: {
             login() {
+                let self = this;
                 //如果使用{ name: 'layout' } 则不会默认显示子组件，需要用path，或者直接使用{ name: 'category' }子组件名称
-                this.$router.push("/layout");
+                let loginUrl = CmsUtil.remoteUrl.concat("/admin/auth/checkLogin");
+
+                self.$ajax.post(loginUrl,
+                    Qs.stringify({
+                        oc_account: self.account,
+                        oc_password: self.password,
+                        oc_rememberme: self.rememberPwd
+                    }))
+                    .then(function (response) {
+                        let data = response.data;
+                        if (data.status == "success") {
+                            self.$router.push("/layout");
+                        } else {
+                            self.$message({
+                                showClose: true,
+                                message: data.message,
+                                type: 'error'
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+
+
             }
         }
     }
