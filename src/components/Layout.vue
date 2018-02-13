@@ -13,7 +13,8 @@
             </nav>
         </el-header>
 
-        <el-container style="min-height: 900px; text-align: left;">
+        <el-container style="text-align: left;">
+            <!-- 侧边栏 -->
             <el-aside class="main-sidebar" :width="isCollapse ? '65px' : '230px'">
                 <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
                          :collapse="isCollapse" text-color="#fff" style="border-right: 0;" background-color="#222d32">
@@ -35,15 +36,18 @@
                     </el-menu-item>
                     <el-menu-item index="5">
                         <i class="el-icon-setting"></i>
-                        <span slot="title">系统管理（用户角色权限等）</span>
+                        <span slot="title">系统管理（用户角色等）</span>
                     </el-menu-item>
                 </el-menu>
             </el-aside>
 
-            <el-container>
-                <el-main>Main</el-main>
-                <el-footer>Footer</el-footer>
+            <!-- 内容模块 -->
+            <el-container class="main-content" :style="{'marginTop' : '50px', 'marginLeft' : isCollapse ? '65px' : '230px'}">
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
             </el-container>
+
         </el-container>
 
     </el-container>
@@ -80,6 +84,9 @@
         position: relative;
         max-height: 100px;
         z-index: 1030;
+        position: fixed;
+        left: 0;
+        right: 0;
     }
 
     .main-header .logo {
@@ -138,11 +145,15 @@
 
     .main-sidebar {
         background-color: #222d32;
+        position: fixed;
+        left: 0;
+        top: 50px;
+        bottom: 0;
     }
 
     .el-menu-item.is-active {
         color: #FFF;
-        background-color: #00c1de !important;
+        background-color: #409eff !important;
     }
 
     .el-menu-item, .el-submenu__title {

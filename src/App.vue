@@ -24,6 +24,7 @@
 
     body {
         height: 100%;
+        background-color: #ecf0f5;
     }
 
     input, textarea, keygen, select, button {

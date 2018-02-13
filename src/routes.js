@@ -1,6 +1,8 @@
 import Login from './pages/Login.vue'
 import Layout from './components/Layout.vue'
 
+import Category from './pages/content/Category.vue'
+
 let routes = [
     {
         path: '/',
@@ -15,8 +17,21 @@ let routes = [
     {
         path: '/layout',
         component: Layout,
-        name: 'layout'
+        name: 'layout',
+        children: [
+            {
+                path: 'category',
+                name: 'category',
+                component: Category
+            },
+            {
+                path: '',
+                component: Category
+            }
+        ]
     }
+
+
     // ,
     // {
     //     path: '/404',

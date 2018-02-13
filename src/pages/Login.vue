@@ -58,7 +58,8 @@
         },
         methods: {
             login() {
-                this.$router.push({name: 'layout'});
+                //如果使用{ name: 'layout' } 则不会默认显示子组件，需要用path，或者直接使用{ name: 'category' }子组件名称
+                this.$router.push("/layout");
             }
         }
     }
