@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+.idea
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+*.iml
+out
+gen

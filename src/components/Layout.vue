@@ -1,0 +1,161 @@
+<template>
+    <el-container>
+        <el-header class="main-header" style="height: auto; padding: 0;">
+            <a href="javascript:;" class="logo" :style="{'width':isCollapse?'65px':'230px'}">
+                <span class="logo-mini" v-show="isCollapse">Cms</span>
+                <span class="logo-lg" v-show="!isCollapse"><b>Omg</b>CMS</span>
+            </a>
+            <nav class="navbar navbar-static-top" :style="{'marginLeft':isCollapse?'65px':'230px'}">
+                <a @click.prevent="toggleMenu" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"
+                   style="line-height: 19px;">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </a>
+            </nav>
+        </el-header>
+
+        <el-container style="min-height: 900px; text-align: left;">
+            <el-aside class="main-sidebar" :width="isCollapse ? '65px' : '230px'">
+                <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+                         :collapse="isCollapse" text-color="#fff" style="border-right: 0;" background-color="#222d32">
+                    <el-menu-item index="1">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span slot="title">系统概况</span>
+                    </el-menu-item>
+                    <el-menu-item index="2">
+                        <i class="el-icon-menu"></i>
+                        <span slot="title">栏目管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="3">
+                        <i class="el-icon-document"></i>
+                        <span slot="title">内容管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="4">
+                        <i class="el-icon-document"></i>
+                        <span slot="title">模型管理</span>
+                    </el-menu-item>
+                    <el-menu-item index="5">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">系统管理（用户角色权限等）</span>
+                    </el-menu-item>
+                </el-menu>
+            </el-aside>
+
+            <el-container>
+                <el-main>Main</el-main>
+                <el-footer>Footer</el-footer>
+            </el-container>
+        </el-container>
+
+    </el-container>
+</template>
+
+<script>
+    export default {
+        name: "layout",
+
+        data() {
+            return {
+                isCollapse: false
+            };
+        },
+
+        methods: {
+            toggleMenu() {
+                console.log("AAA");
+                this.isCollapse = !this.isCollapse;
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+    .main-header {
+        position: relative;
+        max-height: 100px;
+        z-index: 1030;
+    }
+
+    .main-header .logo {
+        -webkit-transition: width .3s ease-in-out;
+        -o-transition: width .3s ease-in-out;
+        transition: width .3s ease-in-out;
+        display: block;
+        float: left;
+        height: 50px;
+        font-size: 20px;
+        line-height: 50px;
+        text-align: center;
+        width: 230px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 0;
+        font-weight: 300;
+        overflow: hidden;
+    }
+
+    .main-header .logo {
+        background-color: #367fa9;
+        color: #fff;
+        border-bottom: 0 solid transparent;
+    }
+
+    .main-header .navbar {
+        background-color: #3c8dbc;
+    }
+
+    .main-header .navbar {
+        -webkit-transition: margin-left .3s ease-in-out;
+        -o-transition: margin-left .3s ease-in-out;
+        transition: margin-left .3s ease-in-out;
+        margin-bottom: 0;
+        margin-left: 230px;
+        border: none;
+        min-height: 50px;
+        border-radius: 0;
+    }
+
+    .main-header .navbar .sidebar-toggle {
+        color: #fff;
+    }
+
+    .main-header .navbar .sidebar-toggle:hover {
+        background-color: #367fa9;
+    }
+
+    .main-header .sidebar-toggle {
+        float: left;
+        background-color: transparent;
+        background-image: none;
+        padding: 15px 15px;
+        font-family: fontAwesome;
+    }
+
+    .main-sidebar {
+        background-color: #222d32;
+    }
+
+    .el-menu-item.is-active {
+        color: #FFF;
+        background-color: #00c1de !important;
+    }
+
+    .el-menu-item, .el-submenu__title {
+        height: 40px;
+        line-height: 40px;
+    }
+
+    i.fa {
+        margin-right: 5px;
+        width: 24px;
+        text-align: center;
+        font-size: 18px;
+        vertical-align: middle;
+    }
+
+</style>
