@@ -1,8 +1,8 @@
 <template>
 
-    <div class="login-box">
+    <div class="login-box" v-loading.fullscreen="isLoading">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Open</b>Cms</a>
+            <a href="javascript:;"><b>Omg</b>Cms</a>
         </div>
 
         <div class="login-box-body">
@@ -54,15 +54,16 @@
             return {
                 account: '',
                 password: '',
-                rememberPwd: false
+                rememberPwd: false,
+                isLoading: false
             }
         },
         methods: {
             login() {
                 let self = this;
-                //如果使用{ name: 'layout' } 则不会默认显示子组件，需要用path，或者直接使用{ name: 'category' }子组件名称
                 let loginUrl = CmsUtil.remoteUrl.concat("/admin/auth/checkLogin");
 
+                self.isLoading = true;
                 self.$ajax.post(loginUrl,
                     Qs.stringify({
                         oc_account: self.account,
@@ -72,6 +73,7 @@
                     .then(function (response) {
                         let data = response.data;
                         if (data.status == "success") {
+                            //如果使用{ name: 'layout' } 则不会默认显示子组件，需要用path，或者直接使用{ name: 'category' }子组件名称
                             self.$router.push("/layout");
                         } else {
                             self.$message({
@@ -80,11 +82,16 @@
                                 type: 'error'
                             });
                         }
+                        self.isLoading = false;
                     })
                     .catch(function (error) {
-                        console.error(error);
+                        self.$message({
+                            showClose: true,
+                            message: error.message,
+                            type: 'error'
+                        });
+                        self.isLoading = false;
                     });
-
 
             }
         }

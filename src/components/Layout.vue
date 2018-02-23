@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container v :v-loading.fullscreen="isLoading">
         <el-header class="main-header" style="height: auto; padding: 0;">
             <a href="javascript:;" class="logo" :style="{'width':isCollapse?'65px':'230px'}">
                 <span class="logo-mini" v-show="isCollapse">Cms</span>
@@ -10,6 +10,14 @@
                    style="line-height: 19px;">
                     <i class="fa fa-bars" aria-hidden="true"></i>
                 </a>
+                <ul class="right-navbar">
+                    <li>
+                        <a href="javascript:;" @click.prevent="logout">
+                            <span>退出</span>
+                            <i class="fa fa-sign-out" style="margin-top: -2px; margin-right: 0;" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
             </nav>
         </el-header>
 
@@ -20,7 +28,7 @@
                          :collapse="isCollapse" text-color="#fff" style="border-right: 0;" background-color="#222d32">
                     <el-menu-item index="1">
                         <i class="fa fa-home" aria-hidden="true"></i>
-                        <span slot="title">系统概况</span>
+                        <span slot="title">系统首页</span>
                     </el-menu-item>
                     <el-menu-item index="2">
                         <i class="el-icon-menu"></i>
@@ -42,7 +50,8 @@
             </el-aside>
 
             <!-- 内容模块 -->
-            <el-container class="main-content" :style="{'marginTop' : '50px', 'marginLeft' : isCollapse ? '65px' : '230px'}">
+            <el-container class="main-content"
+                          :style="{'marginTop' : '50px', 'marginLeft' : isCollapse ? '65px' : '230px'}">
                 <el-main>
                     <router-view></router-view>
                 </el-main>
@@ -54,18 +63,49 @@
 </template>
 
 <script>
+
     export default {
         name: "layout",
 
         data() {
             return {
-                isCollapse: false
+                isCollapse: false,
+                isLoading: false
             };
+        },
+
+        created: function () {
+            let self = this;
+            CmsUtil.checkAuthentication(self);
+            self.isLoading = false;
         },
 
         methods: {
             toggleMenu() {
                 this.isCollapse = !this.isCollapse;
+            },
+            logout() {
+
+                let self = this;
+                let logoutUrl = CmsUtil.remoteUrl.concat("/admin/auth/logout");
+
+                self.isLoading = true;
+                self.$ajax.post(logoutUrl)
+                    .then(function (response) {
+
+                        self.$router.push("/login");
+                        self.isLoading = false;
+
+                    })
+                    .catch(function (error) {
+                        self.$message({
+                            showClose: true,
+                            message: error.message,
+                            type: 'error'
+                        });
+                        self.isLoading = false;
+                    });
+
             },
             handleOpen(key, keyPath) {
                 console.log(key, keyPath);
@@ -130,8 +170,21 @@
         color: #fff;
     }
 
-    .main-header .navbar .sidebar-toggle:hover {
+    .main-header .navbar .sidebar-toggle:hover,
+    ul.right-navbar a:hover {
         background-color: #367fa9;
+    }
+
+    ul.right-navbar {
+        float: right;
+        list-style: none;
+        padding: 0;
+    }
+
+    ul.right-navbar a {
+        color: #ffffff;
+        font-weight: bold;
+        padding: 15px;
     }
 
     .main-header .sidebar-toggle {
@@ -155,7 +208,7 @@
         background-color: #2c3b41 !important;
     }
 
-    .el-menu-item:focus, .el-menu-item:hover{
+    .el-menu-item:focus, .el-menu-item:hover {
         background-color: #2c3b41 !important;
     }
 
