@@ -6,7 +6,7 @@
             </el-col>
             <el-col :span="12" style="text-align: right; padding-top: 10px;">
                 <el-breadcrumb separator-class="el-icon-arrow-right">
-                    <el-breadcrumb-item :to="{ path: '/layout' }">用户列表</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: '/layout' }">首页</el-breadcrumb-item>
                     <el-breadcrumb-item>用户列表</el-breadcrumb-item>
                 </el-breadcrumb>
             </el-col>
