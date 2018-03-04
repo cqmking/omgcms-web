@@ -24,7 +24,7 @@
         <el-container style="text-align: left;">
             <!-- 侧边栏 -->
             <el-aside class="main-sidebar" :width="isCollapse ? '65px' : '230px'">
-                <el-menu default-active="1-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+                <el-menu default-active="1-1" class="el-menu-vertical-demo" @select="selectItem"
                          :collapse="isCollapse" text-color="#fff" style="border-right: 0;" background-color="#222d32">
                     <el-menu-item index="1">
                         <i class="fa fa-home" aria-hidden="true"></i>
@@ -42,10 +42,13 @@
                         <i class="el-icon-document"></i>
                         <span slot="title">模型管理</span>
                     </el-menu-item>
-                    <el-menu-item index="5">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">系统管理（用户角色等）</span>
-                    </el-menu-item>
+                    <el-submenu index="5">
+                        <template slot="title"><i class="el-icon-setting"></i>系统管理</template>
+                        <el-menu-item index="5-1" class="sub-item">用户管理</el-menu-item>
+                        <el-menu-item index="5-2" class="sub-item">角色管理</el-menu-item>
+                        <el-menu-item index="5-3" class="sub-item">组织机构管理</el-menu-item>
+                        <el-menu-item index="5-4" class="sub-item">权限管理</el-menu-item>
+                    </el-submenu>
                 </el-menu>
             </el-aside>
 
@@ -107,11 +110,15 @@
                     });
 
             },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
+            selectItem(key, keyPath) {
+                let self = this;
+                if (key == "1") {
+                    //系统首页
+                    self.$router.push("/layout");
+                } else if (key == "5-1") {
+                    //用户管理
+                    self.$router.push("/layout/userList");
+                }
             }
         }
     }
@@ -223,6 +230,10 @@
         text-align: center;
         font-size: 18px;
         vertical-align: middle;
+    }
+
+    .sub-item {
+        padding-left: 50px !important;
     }
 
 </style>

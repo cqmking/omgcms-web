@@ -3,6 +3,8 @@ import Layout from './components/Layout.vue'
 
 import Category from './pages/content/Category.vue'
 
+import UserList from './pages/system/user/UserList.vue'
+
 let routes = [
     {
         path: '/',
@@ -20,6 +22,10 @@ let routes = [
         name: 'layout',
         children: [
             {
+                path: 'userList',
+                name: 'userList',
+                component: UserList
+            },            {
                 path: 'category',
                 name: 'category',
                 component: Category
