@@ -2,6 +2,7 @@ import Login from './pages/Login.vue'
 import Layout from './components/Layout.vue'
 
 import Category from './pages/content/Category.vue'
+import SystemInfo from './pages/content/SystemInfo.vue'
 
 import UserList from './pages/system/user/UserList.vue'
 
@@ -25,14 +26,18 @@ let routes = [
                 path: 'userList',
                 name: 'userList',
                 component: UserList
-            },            {
+            }, {
                 path: 'category',
                 name: 'category',
                 component: Category
+            }, {
+                path: 'systemInfo',
+                name: 'systemInfo',
+                component: SystemInfo
             },
             {
                 path: '',
-                component: Category
+                component: SystemInfo
             }
         ]
     }
